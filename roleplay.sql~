@@ -1,0 +1,36 @@
+
+
+START TRANSACTION;
+
+DROP TABLE roleplay_imagefile;
+
+
+DROP TABLE roleplay_gamelocation;
+DROP TABLE roleplay_game;
+
+DROP TABLE roleplay_event;
+DROP TABLE roleplay_location;
+
+
+
+
+
+
+COMMIT;
+
+
+
+ALTER TABLE `roleplay_event` DROP FOREIGN KEY `location_id_refs_id_c57d08af`;
+ALTER TABLE `roleplay_event` DROP FOREIGN KEY `map_id_refs_id_071a62e4`;
+
+ALTER TABLE `roleplay_event` DROP KEY `roleplay_event_afbb987d`;
+ALTER TABLE `roleplay_event` DROP KEY `roleplay_event_51513134`;
+
+
+ALTER TABLE `roleplay_event` DROP KEY `map_id`;
+ALTER TABLE `roleplay_event` DROP KEY `location_id`;
+
+
+
+
+SHOW CREATE TABLE roleplay_game;
