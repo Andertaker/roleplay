@@ -1,0 +1,33 @@
+{% load menu_tags %}
+
+<ul class="nav nav-pills col-xs-6">
+	{% url 'games' as games_url %}
+	<li class="{% if request.path = games_url or app_name = 'games' %}active{% endif %}">
+		<a href="{{ games_url }}">Игры</a>
+	</li>
+	
+	{# CMS menu #}
+	{# оригинал взять от сюда /menus/templates/menu/menu.html  #}
+	{% for child in children %}
+	<li class="{% if child.selected %}active selected{% endif %}{% if child.ancestor %}ancestor{% endif %}{% if child.sibling %}sibling{% endif %}{% if child.descendant %}descendant{% endif %}">
+		<a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+		{% if child.children %}
+	    <ul>
+	        {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+	    </ul>
+	    {% endif %}
+	</li>
+	{% endfor %}
+	
+	{# CMS menu #}
+</ul>
+   
+{% if user.is_staff %}
+<ul class="nav nav-pills col-xs-6">
+	<li class="{% if 'rp_admin' in namespaces %}active{% endif %}">
+		<a href="{% url 'rp_admin:games' %}">Админка(игры)</a>
+	</li>
+	<li><a href="/admin">Админка(Django)</a></li>
+</ul>
+{% endif %}
+

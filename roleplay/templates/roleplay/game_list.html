@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Игры{% endblock %}
+
+{% block base_content %}
+	<h4>Последние игры, {{ page_obj.object_list.count }} из {{ paginator.count }}:</h4>
+	<div class="table-responsive">
+		<table id="game-list" class="table table-bordered">
+			<tr><th>Наименование</th><th>Дата</th></tr>
+			
+			<tbody class="table-striped ">
+			{% for game in game_list %}
+				<tr>
+					<td>
+				 		<a href="{% url 'game_detail' game.slug %}">{{game.name}}</a>
+				 	</td>
+				 	<td>
+				 		<i>{{ game.date|date:"d.m.Y" }}</i>
+				 	</td>
+				</tr>
+			
+			
+			{% endfor %}
+			</tbody>	
+		</table>
+	</div>
+
+
+	Всего {{ paginator.count }}<br>
+	{% include "pagination.html" %}
+	<br>
+	{% if user.is_staff %}
+	<a class="btn btn-info" href="{% url 'rp_admin:game_add' %}">Добавить игру</a>
+	{% endif %}
+
+{% endblock %}

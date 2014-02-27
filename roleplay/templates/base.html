@@ -1,0 +1,58 @@
+{% load cms_tags sekizai_tags %}
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <title>Ролевые игры - {% page_attribute "page_title" %}{% block title %}{% endblock %}</title>
+        
+        
+        <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{STATIC_URL}}css/style.css" rel="stylesheet">
+        
+        
+		<script src="{{STATIC_URL}}jquery-2.0.3.min.js" type="text/javascript"></script>
+		<script src="{{STATIC_URL}}jquery.lazyload.min.js" type="text/javascript"></script>
+        
+        <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+        <link href="{{STATIC_URL}}fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" media="screen" />
+        <script src="{{STATIC_URL}}fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script>
+        <script src="{{STATIC_URL}}fancybox/source/jquery.mousewheel-3.0.6.pack.js" type="text/javascript"></script>
+		
+		<script defer src="{{STATIC_URL}}script.js" type="text/javascript"></script>
+		
+
+      {% render_block "css" %}
+  </head>
+  <body>
+		<div class="header"> </div>
+
+		<div id="main_menu" class="row-fluid">
+    		<!-- Горизонтальное меню !-->
+    			{% load menu_tags %}
+    			{% show_menu 0 100 0 100  %}
+    	</div>
+ 		
+ 
+	    	
+      	<div class="row-fluid">
+		    <div id="main_content" class="content">
+	    	    {% placeholder base_content %}
+
+  				{% block base_content %}  Empty page   {% endblock %}
+		    </div>
+	    </div>
+
+
+		<div class="footer">{% placeholder base_footer %}</div>
+
+
+      {% render_block "js" %}
+
+      
+  </body>
+
+  
+
+</html>

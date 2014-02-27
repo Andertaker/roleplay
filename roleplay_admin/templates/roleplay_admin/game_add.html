@@ -1,0 +1,45 @@
+{% extends 'rp_admin_base.html' %}
+
+
+{% block title %}Игры{% endblock %}
+
+
+
+
+
+{% block base_content %}
+	<ol class="breadcrumb">
+		<li><a href="{% url 'rp_admin:games' %}">Игры</a></li>
+		<li class="active">Добавление игры</li>
+	</ol>
+
+	<form method="post" action="{% url 'rp_admin:game_add' %}">
+		<table>
+			{{ form.as_table }}
+			
+			
+			<tr><th>Локации:</th></tr>
+			{{ formset.management_form }}
+			{% for form in formset %}
+		        {{ form.id }}
+		            <tr>
+		            	<td> </td>
+		            	<td>{{ form.location }}</td>
+		            </tr>
+		    {% endfor %}
+			
+		</table>
+
+
+		<br>
+		<input class="btn btn-info" type="submit" value="Добавить">
+	</form>
+
+	
+	
+	
+	
+
+
+
+{% endblock %}

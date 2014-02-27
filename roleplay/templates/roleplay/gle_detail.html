@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ game.name }} / {{ location.name }} / {{ event.name }}{% endblock %}
+
+
+
+
+{% block base_content %}
+	<ol class="breadcrumb">
+		<li><a href="{% url 'games' %}">Игры</a></li>
+		<li><a href="{% url 'game_detail' game.slug %}">{{ game.name }}</a></li>
+		<li><a href="{% url 'gl_detail' game.slug location.slug %}">{{ location.name }}</a></li>
+		<li class="active">{{ event.name }}</li>
+	</ol>
+
+
+	<a href="{% url 'gle_chars' game.slug location.slug event.slug %}" class="btn btn-default btn-xs">
+		<span class="glyphicon glyphicon-user"></span>
+		Персонажи ({{ gle.chars_count }}):
+	</a>
+	
+
+	<br>
+	Сортировать по:<br>
+	<nav class="navbar navbar-default" role="navigation">
+	<ul class="nav navbar-nav">
+		{% for v in order_list %}
+			{% if order = v.field %}
+				<li class="active">
+					<a href="?order=-{{ v.field }}">
+						{{ v.verbose_name }}
+						<span class="active glyphicon glyphicon-sort-by-alphabet"></span>
+					</a>
+				</li>
+			{% elif order|cut:"-" =  v.field %}
+				<li class="active">
+					<a href="?order={{ v.field }}">
+						{{ v.verbose_name }}
+						<span class="active glyphicon glyphicon-sort-by-alphabet-alt"></span>
+					</a>
+				</li>
+			{% else %}
+				<li><a href="?order={{ v.field }}">{{ v.verbose_name }}</a></li>
+			{% endif %}
+			
+		{% endfor %}
+	</ul>
+	</nav>
+
+	<span class="glyphicon glyphicon-picture"></span>
+	Фотографии, всего {{ paginator.count }}<br>
+
+
+	{% include "pagination.html" %}
+	<div class="gallery">
+	    {% for img in images %}
+	    <div class="gallery-photo">
+	        <a title="Снимок сделан: {{ img.exif_date }}" href="{{ img.image.url }}" rel="{{ game.id }}" class="fancybox">
+	        	<img class="lazy" src="/static/images/dummy.png" data-original="{{ img.image.thumb.url }}" height=100 />
+	        </a>
+	    </div>
+	    {% endfor %}
+	</div>
+	
+	<br clear="all">
+	<br>
+	{% include "pagination.html" %}
+	
+
+	
+	
+
+
+
+
+{% endblock %}

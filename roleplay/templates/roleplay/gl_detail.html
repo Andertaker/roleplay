@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Редактирование {% endblock %}
+
+
+
+
+{% block base_content %}
+	<ol class="breadcrumb">
+		<li><a href="{% url 'games' %}">Игры</a></li>
+		<li><a href="{% url 'game_detail' game.slug %}">{{ game.name }}</a></li>
+		<li class="active">{{ location.name }}</li>
+	</ol>
+
+
+
+	События:<br>
+	{% with gles=gl.gamelocationsevents_set.all %}
+		{% if gles|length %}
+			<ul class="list-unstyled">
+			{% for gle in gles %}
+				<li>
+					<a href="{% url 'gle_detail' game.slug location.slug gle.event.slug  %}">{{ gle.event.name }}</a>
+					({{ gle.chars_count }})
+				</li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			Нет событий
+		{% endif %}
+	{% endwith %}
+
+
+
+
+
+{% endblock %}

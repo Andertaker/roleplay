@@ -1,0 +1,28 @@
+
+url_name = {{ url_name }}<br>
+namespace = {{ namespace }}<br>
+namespaces = {{ namespaces }}<br>
+app_name = {{ app_name }}<br>
+
+args = {{ args }}<br>
+kwargs = {{ kwargs }}<br>
+<br><br>
+
+
+
+
+
+{% url 'rp_admin:test_menu_ns:test_detail' %}<br>
+
+
+
+{{ request.resolver_match.url_name }}
+
+
+
+{{ debug }}<br>
+
+
+
+
+{{ request }}

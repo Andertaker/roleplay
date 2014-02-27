@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Событие {{object.name}}{% endblock %}
+
+
+
+{% block base_content %}
+	{{object.name}} {{object.date}}<br>
+	
+	{{object.date|date:"F" }}<br>
+	{{object.date|date:"M/d" }}<br>
+	{{object.date|date:"d.m.Y" }}<br>
+	{{object.date|date:"F" }}<br>
+	{{object.date|date:"f" }}<br>
+	
+	
+	
+	{{object.description}}
+
+
+{% endblock %}

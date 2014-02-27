@@ -1,0 +1,12 @@
+<ul class="nav nav-pills col-xs-6">
+	{% url 'rp_admin:games' as rp_admin_games_url %}
+
+	
+	<li class="{% if request.path = rp_admin_games_url or app_name = 'rp_admin_games' %}active{% endif %}">
+		<a href="{{ rp_admin_games_url }}">Игры</a>
+	</li>
+	<li class="{% if app_name = 'users' %}active{% endif %}">
+		<a href="{% url 'rp_admin:users' %}">Пользователи</a>
+	</li>
+
+</ul>

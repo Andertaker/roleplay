@@ -1,0 +1,41 @@
+{% extends 'rp_admin_base.html' %}
+
+
+{% block title %}Игры{% endblock %}
+
+{% block base_content %}
+	<h4>Игры, {{ page_obj.object_list.count }} из {{ paginator.count }}:</h4>
+	<div class="table-responsive">
+		<table id="game-list" class="table table-bordered">
+			<tr>
+				<th>ID</th>
+				<th>Наименование</th>
+				<th>Slug</th>
+				<th>Дата</th>
+				
+			</tr>
+			
+			<tbody class="table-striped ">
+			{% for game in game_list %}
+				<tr>
+					<td>{{ game.id }}</td>
+					<td>
+				 		<a href="{% url 'rp_admin:game_detail' game.id %}">{{ game.name }}</a>
+				 	</td>
+				 	<td>{{ game.slug }}</td>
+				 	<td>{{ game.date|date:"d.m.Y" }}</td>
+				</tr>
+			
+			
+			{% endfor %}
+			</tbody>	
+		</table>
+	</div>
+
+	Всего {{ paginator.count }}<br>
+	{% include "pagination.html" %}
+	<br>
+	<a class="btn btn-info" href="{% url 'rp_admin:game_add' %}">Добавить игру</a>
+
+
+{% endblock %}

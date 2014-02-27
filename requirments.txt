@@ -1,0 +1,9 @@
+django=1.5.5
+django-cms=2.4.3
+
+
+
+Сделать в БД auth_user поле NULL
+
+
+

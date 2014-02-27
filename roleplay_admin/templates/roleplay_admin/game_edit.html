@@ -1,0 +1,45 @@
+{% extends 'rp_admin_base.html' %}
+
+
+{% block title %}Игра {{ game.name }}{% endblock %}
+
+
+
+{% block base_content %}
+	<ol class="breadcrumb">
+		<li><a href="{% url 'rp_admin:games' %}">Игры</a></li>
+		<li><a href="{% url 'rp_admin:game_detail' game.id %}">{{ game.name }}</a></li>
+		<li class="active">Редактирование</li>
+	</ol>
+
+	<form method="post" action="{% url 'rp_admin:game_edit' game.id %}">
+		<table>
+			{{ form.as_table }}
+			
+			
+			<tr><th>Локации:</th></tr>
+			{{ formset.management_form }}
+			{% for form in formset %}
+		        {{ form.id }}
+		            <tr>
+		            	<td></td>
+		            	<td>{{ form.location }}
+			            {% if form.location.value and formset.can_delete %}
+			                Удалить? {{ form.DELETE }}</td>
+			            {% endif %}
+		            </tr>
+		    {% endfor %}
+			
+		</table>
+		
+		<br>
+		
+		<input class="btn btn-info" type="submit" value="Сохранить">
+
+	</form>
+
+
+
+
+
+{% endblock %}

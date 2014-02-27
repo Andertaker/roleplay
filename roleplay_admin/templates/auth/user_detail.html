@@ -1,0 +1,29 @@
+{% extends 'rp_admin_base.html' %}
+
+
+
+
+{% block title %}Пользователя {{ u.username }}{% endblock %}
+
+
+
+{% block base_content %}
+	
+	<ol class="breadcrumb">
+		<li><a href="{% url 'rp_admin:users' %}">Пользователи</a></li>
+		<li class="active">{{ u.username }}</li>
+	</ol>
+	
+	<strong>Id:</strong> {{ u.id }}<br>
+	<strong>username:</strong> {{ u.username }}<br> 
+	<strong>Фамилия:</strong> {{ u.last_name }}<br>
+	<strong>Имя:</strong> {{ u.first_name }}<br>
+
+
+
+	<br>
+	<a class="btn btn-info" href="{% url 'rp_admin:user_edit' u.id %}">Редактировать пользователя</a>
+
+
+
+{% endblock %}

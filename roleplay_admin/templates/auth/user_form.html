@@ -1,0 +1,45 @@
+{% extends 'rp_admin_base.html' %}
+
+
+
+
+{% block title %}
+	{% if u %}
+		Редактирование пользователя {{ u.username }}
+	{% else %}
+	    Добавление пользователя
+	{% endif %}
+{% endblock %}
+
+
+
+{% block base_content %}
+	
+	<ol class="breadcrumb">
+		<li><a href="{% url 'rp_admin:users' %}">Пользователи</a></li>
+		{% if u %}
+		<li class="active"><a href="{% url 'rp_admin:user_detail' u.id %}">{{ u.username }}</a></li>
+		<li class="active">Редактирование</li>
+		{% else %}
+		<li class="active">Добавление пользователя</li>
+		{% endif %}
+	</ol>
+	
+	
+	
+	
+
+	<form method="post" >
+		<table>
+			{{ form.as_table }}
+		</table>
+		
+		<br>
+		
+		<input class="btn btn-info" type="submit" value="Сохранить">
+
+	</form>
+
+
+
+{% endblock %}

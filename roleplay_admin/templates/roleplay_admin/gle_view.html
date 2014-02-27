@@ -1,0 +1,102 @@
+{% extends 'rp_admin_base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}Редактирование {% endblock %}
+
+
+
+
+{% block base_content %}
+	<ol class="breadcrumb">
+		<li><a href="{% url 'rp_admin:games' %}">Игры</a></li>
+		<li><a href="{% url 'rp_admin:game_detail' game.id %}">{{ game.name }}</a></li>
+		<li><a href="{% url 'rp_admin:gl_edit' game.id game_loc.id %}">{{ game_loc.location.name }}</a></li>
+		<li class="active">{{ gle.event.name }}</li>
+	</ol>
+	
+
+	
+
+	<div class="row-fluid">
+		<div class="col-sm-4">
+			<a class="btn-sm btn-info" href="{% url 'rp_admin:gle_chars_edit' gle.id %}">Добавить персонажей</a>
+			<br><br>
+			<span class="glyphicon glyphicon-user"></span>
+			Персонажи({{ chars|length }}):
+			
+			<table id="game-list" class="table table-bordered">
+				<tbody class="table-striped ">
+					{% for obj in chars %}
+						<tr>
+							<td>{{ obj.char.name}}</td>
+							<td>{{ obj.user.last_name}} {{ obj.user.first_name}}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				
+			</table>
+
+		</div>
+		
+		<div class="col-sm-8">
+			<span class="glyphicon glyphicon-upload"></span> Загрузка фото:
+			<div id="dnd" class="b-upload b-upload_dnd">
+			   <div class="b-upload__dnd">Drag and drop(перетащите изображения)</div>
+			   <div class="b-upload__dnd-not-supported">
+			      <div class="btn btn-success js-fileapi-wrapper">
+			         <input name="image" multiple="" type="file" accept="image/*">
+			      </div>
+			   </div>
+			   <div class="js-files b-upload__files">
+			      <div class="js-file-tpl b-thumb">
+			         <div class="b-thumb__preview">
+			            <div class="b-thumb__preview__pic"> </div>
+			         </div>
+			         <div class="b-thumb__progress progress progress-small"><div class="bar"> </div></div>
+			         <div class="b-thumb__name"> </div>
+			      </div>
+			   </div>
+			</div>
+
+			<br>
+			<span class="glyphicon glyphicon-picture"></span>
+			Фотографии({{ images|length }}): <br>
+			
+			{% for img in images %}
+				<a href="{{ img.image.url }}" target="_blank">{{ img.image.name }}</a><br>
+			{% endfor %}
+		
+			<br><br>
+			
+			{% if image_upload_form %}
+			<form method="post" enctype="multipart/form-data" action="{% url 'rp_admin:file_upload' %}">
+				Загрузка одной фото(для теста)<br>
+				{{ image_upload_form }}
+				<input class="btn btn-xs btn-info" type="submit" value="Сохранить">
+			</form>
+			<br><br>
+			{% endif %}
+
+
+		</div>
+
+	</div>
+
+
+
+	<script>
+		csrftoken = $.cookie('csrftoken');
+		
+		upload_to = "{% url 'rp_admin:file_upload' %}";
+		game_id = "{{ game.id }}";
+		location_id = "{{ game_loc.location.id }}";
+		event_id = "{{ gle.event.id }}";
+	</script>
+
+	<script src="{% static 'roleplay_admin/upload.js' %}"></script>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'rp_admin_base.html' %}
+
+
+{% block title %}Редактирование {% endblock %}
+
+
+
+
+{% block base_content %}
+	<ol class="breadcrumb">
+		<li><a href="{% url 'rp_admin:games' %}">Игры</a></li>
+		<li><a href="{% url 'rp_admin:game_detail' gl.game.id %}">{{ gl.game.name }}</a></li>
+		<li class="active">{{ gl.location.name }}</li>
+	</ol>
+
+
+	<strong>События:</strong><br>
+	{% with gles=gl.gamelocationsevents_set.all %}
+	{% if gles|length %}
+		<ul>
+		{% for gle in gles %}
+			<li>
+				<a href="{% url 'rp_admin:gle_view' gle.id  %}">{{ gle.event.name }}</a> ({{ gle.chars_count }})
+			</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		Нет событий
+	{% endif %}
+	{% endwith %}
+
+	<br>
+
+	<strong>Редактировать события:</strong><br>
+	<form method="post" action="{% url 'rp_admin:gl_edit' gl.game.id gl.id %}">
+		{{ formset.management_form }}
+		<table>
+		    {% for form in formset %}
+		        {{ form.id }}
+	            <tr>
+	            	<td>{{ form.event }}</td>
+		            {% if form.event.value and formset.can_delete %}
+		                <td>Удалить? {{ form.DELETE }}</td>
+		            {% endif %}
+	            
+	            </tr>
+		    {% endfor %}
+		</table>
+
+		<br>
+		<input class="btn btn-info" type="submit" value="Сохранить">
+
+	</form>
+
+
+
+
+
+{% endblock %}

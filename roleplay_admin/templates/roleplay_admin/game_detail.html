@@ -1,0 +1,47 @@
+{% extends 'rp_admin_base.html' %}
+
+
+{% block title %}Игра {{game.name}}{% endblock %}
+
+{% block base_content %}
+	<ol class="breadcrumb">
+		<li><a href="{% url 'rp_admin:games' %}">Игры</a></li>
+		<li class="active">{{ game.name }}</li>
+	</ol>
+	
+	
+	<br><br>
+	<strong>Наименование:</strong> {{ game.name }}<br> 
+	<strong>Дата:</strong> {{ game.date|date:"d.m.Y" }}<br>
+	<strong>Описание:</strong><div class="game-description">{{ game.description }}</div>
+
+	<strong>Локации:</strong>
+	<ul>
+		{% for game_loc in game.gamelocations_set.all %}
+			<li>
+				<a href="{% url 'rp_admin:gl_edit' game.id game_loc.id %}">{{ game_loc.location.name }}</a> 
+
+				<ul>
+					{% for gle in game_loc.gamelocationsevents_set.all %}
+						<li>
+							<a href="{% url 'rp_admin:gle_view' gle.id  %}">{{ gle.event.name }}</a> ({{ gle.chars_count }})
+						</li>
+					
+					
+					{% endfor %}
+				</ul>
+			
+			</li>
+		{% endfor %}
+
+	</ul>
+
+
+
+
+	
+	<br>
+
+	<a class="btn btn-info btn-sm" href="{% url 'rp_admin:game_edit' game.id %}">редактировать игру</a>
+
+{% endblock %}

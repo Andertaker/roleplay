@@ -1,0 +1,24 @@
+{% extends 'rp_admin_base..html' %}
+
+
+{% block title %}Ошибка {% endblock %}
+
+
+
+
+{% block base_content %}
+<h4>Ошибки формы:</h4><br>
+	{{errors}}
+
+	{% for dic in errors %}
+		{% for key, value in dic.items %}
+			{{ key }} {{ value }}<br>
+		{% endfor %}
+	
+		<br><br>
+	{% endfor %}
+
+
+
+
+{% endblock %}

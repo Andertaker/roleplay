@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Игра {{game.name}}{% endblock %}
+
+{% block base_content %}
+	<ol class="breadcrumb">
+		<li><a href="{% url 'games' %}">Игры</a></li>
+		<li class="active">{{ game.name }}</li>
+	</ol>
+
+	{{ game.name }} {{ game.date|date:"d.m.Y" }}
+
+	<br><br>
+	{{game.description}}<br>
+	
+	
+	Локации:<br>
+	<ul class="list-unstyled">
+		{% for gl in game.gamelocations_set.all %}
+			<li>
+				<a href="{% url 'gl_detail' game.slug gl.location.slug %}">{{ gl.location.name }}</a> 
+
+				<ul class="list-unstyled">
+					{% for gle in gl.gamelocationsevents_set.all %}
+						<li>
+							<a href="{% url 'gle_detail' game.slug gl.location.slug gle.event.slug  %}">{{ gle.event.name }}</a> ({{ gle.chars_count }})
+						</li>
+					
+					
+					{% endfor %}
+				</ul>
+			
+			</li>
+		{% endfor %}
+
+	</ul>
+
+
+{% endblock %}

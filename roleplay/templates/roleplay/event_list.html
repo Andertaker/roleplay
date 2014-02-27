@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block title %}События{% endblock %}
+
+{% block base_content %}
+	<h2>Все события</h2>
+	
+	
+	{% for obj in object_list %}
+		 <h3><a href="{% url 'photo:event_detail' obj.slug %}">{{obj.name}}</a> {{obj.date}}</h3>
+	
+	
+	
+	{% endfor %}
+
+
+{% endblock %}

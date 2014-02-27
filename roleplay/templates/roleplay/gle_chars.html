@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ game.name }} / {{ location.name }} / {{ event.name }}{% endblock %}
+
+
+
+
+{% block base_content %}
+	<ol class="breadcrumb">
+		<li><a href="{% url 'games' %}">Игры</a></li>
+		<li><a href="{% url 'game_detail' game.slug %}">{{ game.name }}</a></li>
+		<li><a href="{% url 'gl_detail' game.slug location.slug %}">{{ location.name }}</a></li>
+		<li><a href="{% url 'gle_detail' game.slug location.slug event.slug %}">{{ event.name }}</a></li>
+		<li class="active">Персонажи</li>
+	</ol>
+
+
+	
+	<h4>
+		<span class="glyphicon glyphicon-user"></span>
+		Персонажи ({{ chars|length }}):
+	</h4>
+	<table id="game-list" class="table table-bordered">
+		<tbody class="table-striped ">
+			{% for obj in chars %}
+				<tr>
+					<td>{{ obj.char.name}}</td>
+					<td>{{ obj.user.last_name}} {{ obj.user.first_name}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		
+	</table>
+	
+
+
+
+
+{% endblock %}

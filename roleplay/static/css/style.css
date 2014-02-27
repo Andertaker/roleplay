@@ -1,0 +1,102 @@
+div.header{
+	height: 20px;
+	
+	
+}
+
+
+
+div#main_menu, div#main_content {
+	padding-left: 20px;
+
+}
+
+div#main_content {
+	padding-top: 40px;
+	
+}
+
+
+table#game-list {
+	width: 90%;
+}
+
+
+table#game-list td {
+	padding: 1px;
+	
+}
+
+table#u-list td {
+	padding: 1px;
+}
+
+
+div.gallery {
+	padding: 20px;
+	
+	
+}
+
+
+
+ul.list-unstyled {
+	padding-left: 35px;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+div.gallery-photo {
+	margin: 3px;
+
+	float: left;
+	height: 104px;
+	min-width: 70px;
+	max-width: 160px;
+	
+	border: 3px solid #606060;
+
+
+}
+
+div.gallery-photo:hover {
+
+	border: 3px solid #0047ab;
+
+
+}
+
+
+
+ul.errorlist li{
+	color: red;
+	
+}
+
+
+input:required {
+	border: 2px solid black;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
