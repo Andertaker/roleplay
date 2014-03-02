@@ -5,6 +5,8 @@ from datetime import datetime
 
 from django.db import models
 from django.db.models.fields.files import ImageFieldFile, ImageFileDescriptor
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 from PIL import Image
 
@@ -65,7 +67,15 @@ class ImageThumbFieldFile(ImageFieldFile):
         
         img_name = self.name.split("/").pop()   # 'uploads/img.jpg' - берём имя файла
         thumb_name = "thumb_" + img_name
-        im.save(THUMB_ROOT + "/" + thumb_name)
+        path_to_file = THUMB_ROOT + "/" + thumb_name
+        #im.save(path_to_file)    # даёт ошибку в некоторых конфигурациях
+        
+        str_object = StringIO()
+        im.save(str_object, 'JPEG')
+        content = str_object.getvalue() 
+        str_object.close()
+        path = default_storage.save(path_to_file, ContentFile(content))
+    
     
         if hasattr(im, "_getexif"):
             "Записываем дату создания снимка берём её из exif"
