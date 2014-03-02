@@ -1,9 +1,12 @@
-django=1.5.5
-django-cms=2.4.3
+django==1.5.4
+django-cms==2.4.3
 
+easy_thumbnails >= 1.0
+django-filer
+cmsplugin-filer
+django-mptt
 
-
-Сделать в БД auth_user поле NULL
+#Сделать в БД auth_user поле NULL
 
 
 

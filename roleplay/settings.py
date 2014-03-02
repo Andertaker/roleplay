@@ -2,7 +2,8 @@
 import os
 gettext = lambda s: s
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
-STATIC_PATH = PROJECT_PATH
+#STATIC_PATH = PROJECT_PATH
+STATIC_PATH = os.path.join(os.path.expanduser('~'), 'domains/stilgar.myjino.ru')
 
 # Django settings for roleplay project.
 
@@ -18,10 +19,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'roleplay_main',                      # Or path to database file if using sqlite3.
+        'NAME': 'stilgar_roleplay',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'roleplay',
-        'PASSWORD': 'r123456',
+        'USER': 'stilgar',
+        'PASSWORD': 'C62bzjjK3',
         'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': 3306,                      # Set to empty string for default.
     }
@@ -274,7 +275,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'sekizai.context_processors.sekizai',
     
     #ROLEPLAY
-    'roleplay.context_processors.url_reslove',
+    #'roleplay.context_processors.url_reslove',
 
     
      #"djangohelper.context_processors.ctx_config",
