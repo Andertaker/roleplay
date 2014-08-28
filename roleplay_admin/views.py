@@ -27,7 +27,7 @@ class UserForm(forms.ModelForm):
         widgets = {
             'username': forms.TextInput(attrs={'required': "required", "size": 40}),
             'first_name': forms.TextInput(attrs={'required': "required", "size": 40}),
-            'last_name': forms.DateInput(attrs={'required': "required", "size": 40}),
+            'last_name': forms.TextInput(attrs={'required': "required", "size": 40}),
             #'description': forms.Textarea(attrs={'cols': 60, 'rows': 2}),
             #'locations': forms.Select(attrs={'size': 15, 'multiple': 'multiple'}),
         }

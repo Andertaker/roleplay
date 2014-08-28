@@ -118,7 +118,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    #'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
@@ -150,7 +150,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    #'django.contrib.messages',
+    'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -183,7 +183,7 @@ INSTALLED_APPS = (
     #'cms.plugins.flash',
     'cms.plugins.googlemap',
     'cms.plugins.link',
-    #'cms.plugins.picture',
+    'cms.plugins.picture',
     #'cms.plugins.snippet',
     #'cms.plugins.teaser',
     'cms.plugins.text',

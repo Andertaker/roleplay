@@ -1,0 +1,11 @@
+*.pyc
+*~
+
+.project
+.pydevproject
+.settings/*
+
+
+
+manage_local.py
+roleplay/settings_local.py

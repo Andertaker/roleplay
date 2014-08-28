@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django import forms
 #from django.forms import ModelForm, Textarea, CharField, Select
-from django.shortcuts import render, render_to_response, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 #from django.template import RequestContext, Context
 from django.views import generic
 #from django.forms.models import inlineformset_factory
