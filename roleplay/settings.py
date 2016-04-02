@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
 gettext = lambda s: s
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
-#STATIC_PATH = PROJECT_PATH
-STATIC_PATH = os.path.join(os.path.expanduser('~'), 'domains/stilgar.myjino.ru')
+STATIC_PATH = PROJECT_PATH
+#STATIC_PATH = os.path.join(os.path.expanduser('~'), 'domains/stilgar.myjino.ru')
 
 # Django settings for roleplay project.
 
-DEBUG = True
-#TEMPLATE_DEBUG = DEBUG
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -66,7 +67,7 @@ MEDIA_ROOT = os.path.join(STATIC_PATH, "media")
 GAMES_PER_PAGE = 10
 USERS_PER_PAGE = 10
 
-THUMBS_PER_PAGE = 5
+THUMBS_PER_PAGE = 50
 THUMB_DIR = "thumbs"
 #THUMB_ROOT = os.path.join(STATIC_PATH, "media", THUMB_DIR)
 THUMB_SIZE = (160, 100)
@@ -82,7 +83,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = os.path.join(STATIC_PATH, "root_static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -282,6 +283,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 
+try:
+    from settings_local import *
+except ImportError:
+    pass
 
 
 
