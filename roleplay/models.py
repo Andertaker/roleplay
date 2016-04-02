@@ -22,7 +22,7 @@ def check_min_date(_date):
      
 
 
-        
+# delete this model
 class Char(models.Model):
     ''' 
         Персонаж (Character)
@@ -103,6 +103,7 @@ class Game(models.Model):
     name = models.CharField('Название', max_length=100, unique=True)
     slug = models.SlugField(unique=True)
     date = models.DateField('Дата игры', db_index=True, validators=[check_min_date])
+    #image = models.ImageField(upload_to="locations")
     description = models.TextField('Описание', blank=True)
     
     locations = models.ManyToManyField(Location, through='GameLocations')
@@ -139,7 +140,7 @@ class GameLocations(models.Model):
         ordering = ["id"]
         
         
-        
+
 class GameLocationsEvents(models.Model):
     '''
         Событие привязываем к конкретной локации
@@ -147,8 +148,8 @@ class GameLocationsEvents(models.Model):
     game_location = models.ForeignKey(GameLocations)
     event = models.ForeignKey(Event)
     
-    users  = models.ManyToManyField(User, through='GameLocationsEventsChars')
-    chars  = models.ManyToManyField(Char, through='GameLocationsEventsChars')
+    users = models.ManyToManyField(User, through='GameLocationsEventsChars') # remove this
+    chars = models.ManyToManyField(Char, through='GameLocationsEventsChars') # remove this
         
     class Meta:
         unique_together = ("game_location", "event")
@@ -158,7 +159,7 @@ class GameLocationsEvents(models.Model):
     
         
         
-        
+# remove this model
 class GameLocationsEventsChars(models.Model):
     '''
     Кто и каким персонажем был на конкретном событии
@@ -166,7 +167,7 @@ class GameLocationsEventsChars(models.Model):
     '''
     game_location_event = models.ForeignKey(GameLocationsEvents)
     user = models.ForeignKey(User)
-    char = models.ForeignKey(Char)        #char_id
+    char = models.ForeignKey(Char) # char_id
     
     class Meta:
         unique_together = ("game_location_event", "user", "char")
@@ -175,7 +176,7 @@ class GameLocationsEventsChars(models.Model):
 
   
         
-        
+# переделать
 class ImageFile(models.Model):
     """
         У фото указываем к какой игре относится
@@ -183,7 +184,9 @@ class ImageFile(models.Model):
         или же к какому событию определённой локации определённой игры
     """
     game = models.ForeignKey(Game)      #игра должна быть задана
+    # game_location = models.ForeignKey(GameLocations, null=True, blank=True) # 3
     location = models.ForeignKey(Location, null=True, blank=True)
+    # game_location_event = models.ForeignKey(GameLocationsEvents, null=True, blank=True)
     event = models.ForeignKey(Event, null=True, blank=True)
     name = models.CharField('Название', max_length=100, default="", blank=True)
     image = ImageThumbField(upload_to="uploads",
@@ -192,20 +195,34 @@ class ImageFile(models.Model):
                             thumb_upload_to=THUMB_DIR,
                             thumb_size=THUMB_SIZE,
                             exif_date_field="exif_date",
-                            db_index=True,
                             )
     width = models.PositiveSmallIntegerField(editable=False)
     height = models.PositiveSmallIntegerField(editable=False)
     exif_date = models.DateTimeField('Дата снимка', null=True, default=None, editable=False, db_index=True)     # берётся из exif
     add_date = models.DateTimeField('Дата добавления', auto_now_add=True, db_index=True, validators=[check_min_date])
     
-    event_chars = models.ManyToManyField(GameLocationsEventsChars, through='EventCharImage')
+    #event_chars = models.ManyToManyField(GameLocationsEventsChars, through='EventCharImage')
 
     class Meta:
         #unique_together = ("game", "location", "event", "image")
         verbose_name = ('Фото')
         verbose_name_plural = ('Фотографии')
         
+        
+    def chars(self):
+        return CharImage.objects.filter(image_file=self)
+        
+    '''
+    def save(self, *args, **kwargs):
+
+        if self.game_location: # 3 gl - object
+            location = self.game_location.location
+            self.location = location # 1 - Мордор
+            
+        
+
+        super(ImageFile, self).save(*args, **kwargs)
+    '''
     
     def clean(self):
         if self.game_id is None:
@@ -249,8 +266,7 @@ class ImageFile(models.Model):
         super(ImageFile, self).clean()    
             
         
-        
-#class GameLocationsEventsCharsImage(models.Model):
+# remove this model
 class EventCharImage(models.Model):
     ''' 
         Привязка записей персонажей события фотографии
@@ -264,13 +280,13 @@ class EventCharImage(models.Model):
     game_location_event_char = models.ForeignKey(GameLocationsEventsChars)
     coordinates = models.CharField('Кординаты', max_length=100)
         
-        
-        
-        
-        
-    
-    
-    
 
-        
-        
+
+class CharImage(models.Model):
+    '''
+    '''
+    image_file = models.ForeignKey(ImageFile)
+
+    user = models.CharField('ФИО Игрока', max_length=100)
+    character = models.CharField('Персонаж игрока', max_length=100)
+

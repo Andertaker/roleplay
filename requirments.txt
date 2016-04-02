@@ -1,10 +1,12 @@
-django==1.5.4
-django-cms==2.4.3
+django==1.5.4       # upgrade to newest versions
+django-cms==2.4.3   # remove this
 
-easy_thumbnails >= 1.0
-django-filer
-cmsplugin-filer
-django-mptt
+easy_thumbnails >= 1.0 # maybe better use sorl-thumbnails and use Amazon s3
+django-filer        # remove
+cmsplugin-filer     # remove
+
+MySQL-python        # replace with python-psycopg2 - Postgres
+
 
 #Сделать в БД auth_user поле NULL
 
